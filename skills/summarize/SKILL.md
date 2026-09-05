@@ -1,6 +1,6 @@
 ---
 name: summarize
-description: Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for “transcribe this YouTube/video”).
+description: Use the summarize CLI when explicitly requested or when its URL, file, podcast, or video extraction capabilities are needed to deliver a summary or transcript.
 homepage: https://summarize.sh
 metadata: {"clawdbot":{"emoji":"🧾","requires":{"bins":["summarize"]},"install":[{"id":"brew","kind":"brew","formula":"steipete/tap/summarize","bins":["summarize"],"label":"Install summarize (brew)"}]}}
 ---
@@ -11,11 +11,7 @@ Fast CLI to summarize URLs, local files, and YouTube links.
 
 ## When to use (trigger phrases)
 
-Use this skill immediately when the user asks any of:
-- “use summarize.sh”
-- “what’s this link/video about?”
-- “summarize this URL/article”
-- “transcribe this YouTube/video” (best-effort transcript extraction; no `yt-dlp` needed)
+Use this skill when the user explicitly requests summarize.sh or its extraction capabilities are needed. An ordinary link-summary request can use available content directly. Preserve the requested artifact and provider choice; extraction alone does not require a model-backed summary.
 
 ## Quick start
 
@@ -33,7 +29,7 @@ Best-effort transcript (URLs only):
 summarize "https://youtu.be/dQw4w9WgXcQ" --youtube auto --extract-only
 ```
 
-If the user asked for a transcript but it’s huge, return a tight summary first, then ask which section/time range to expand.
+If the requested transcript is too large for one response, preserve the full extracted transcript in an authorized artifact and provide its location with a short preview. Report extraction gaps. Clarify only when delivery constraints prevent the requested result; do not substitute a summary for the transcript.
 
 ## Model + keys
 

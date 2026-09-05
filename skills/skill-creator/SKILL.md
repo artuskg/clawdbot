@@ -64,7 +64,7 @@ skill-name/
 
 Every SKILL.md consists of:
 
-- **Frontmatter** (YAML): Contains `name` and `description` fields. These are the only fields that Codex reads to determine when the skill gets used, thus it is very important to be clear and comprehensive in describing what the skill is, and when it should be used.
+- **Frontmatter** (YAML): Require `name` and a concise `description` for discovery. Preserve supported runtime metadata and invocation fields, which can determine eligibility and whether the model may invoke the skill.
 - **Body** (Markdown): Instructions and guidance for using the skill. Only loaded AFTER the skill triggers (if at all).
 
 #### Bundled Resources (optional)
@@ -326,7 +326,7 @@ Write the YAML frontmatter with `name` and `description`:
   - Include all "when to use" information here - Not in the body. The body is only loaded after triggering, so "When to Use This Skill" sections in the body are not helpful to Codex.
   - Example description for a `docx` skill: "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when Codex needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks"
 
-Do not include any other fields in YAML frontmatter.
+Preserve supported Clawdbot metadata and invocation fields when the skill needs them, including `metadata`, `homepage`, `user-invocable`, and `disable-model-invocation`. The runtime reads `metadata` as single-line JSON; keep its OS, binary, environment, and configuration prerequisites intact. See [the runtime parser](../../src/agents/skills/frontmatter.ts) and [types](../../src/agents/skills/types.ts) for the supported schema. Do not add unrelated fields or change invocation policy without task justification.
 
 ##### Body
 

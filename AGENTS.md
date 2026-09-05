@@ -62,7 +62,7 @@
 - After merging a PR: run `bun scripts/update-clawtributors.ts` if the contributor is missing, then commit the regenerated README.
 
 ## Shorthand Commands
-- `sync up`: if working tree is dirty, commit all changes (pick a sensible Conventional Commit message), then `git pull --rebase`; if rebase conflicts and cannot resolve, stop; otherwise `git push`.
+- `sync up`: use the managed `commit` skill to synchronize and publish verified agent-authored changes to the exact authorized destination. Preserve unrelated dirty/index work. A pull-only request does not authorize publication; never guess a remote or branch when the destination is unclear.
 
 ### PR Workflow (Review vs Land)
 - **Review mode (PR link only):** read `gh pr view/diff`; **do not** switch branches; **do not** change code.
@@ -99,7 +99,7 @@
 - Release signing/notary keys are managed outside the repo; follow internal release docs.
 - Notary auth env vars (`APP_STORE_CONNECT_ISSUER_ID`, `APP_STORE_CONNECT_KEY_ID`, `APP_STORE_CONNECT_API_KEY_P8`) are expected in your environment (per internal release docs).
 - **Multi-agent safety:** do **not** create/apply/drop `git stash` entries unless explicitly requested (this includes `git pull --rebase --autostash`). Assume other agents may be working; keep unrelated WIP untouched and avoid cross-cutting state changes.
-- **Multi-agent safety:** when the user says "push", you may `git pull --rebase` to integrate latest changes (never discard other agents' work). When the user says "commit", scope to your changes only. When the user says "commit all", commit everything in grouped chunks.
+- **Multi-agent safety:** use the managed `commit` skill for incoming synchronization and publication. Scope commits to your inspected changes unless the user explicitly asks to include other work; preserve unrelated edits and index state.
 - **Multi-agent safety:** do **not** create/remove/modify `git worktree` checkouts (or edit `.worktrees/*`) unless explicitly requested.
 - **Multi-agent safety:** do **not** switch branches / check out a different branch unless explicitly requested.
 - **Multi-agent safety:** running multiple agents is OK as long as each agent has its own session.
